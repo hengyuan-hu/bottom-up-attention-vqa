@@ -11,8 +11,8 @@ Question Answering: Learnings from the 2017 Challenge"
 ## Results
 
 | Model | Validation Accuracy | Training Time  
-| --- | --- |
-| Reported Model | 63.15 | 12 - 18 hours (Tesla K40)
+| --- | --- | -- |
+| Reported Model | 63.15 | 12 - 18 hours (Tesla K40) |
 | Implemented Model | **63.67** | 40 - 50 minutes (Titan Xp) |
 
 The accuracy was calculated using the [VQA evaluation metric](http://www.visualqa.org/evaluation.html).
