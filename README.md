@@ -10,7 +10,7 @@ Question Answering: Learnings from the 2017 Challenge"
 
 ## Results
 
-| Model | Validation Accuracy | Training Time  
+| Model | Validation Accuracy | Training Time
 | --- | --- | -- |
 | Reported Model | 63.15 | 12 - 18 hours (Tesla K40) |
 | Implemented Model | **63.67** | 40 - 50 minutes (Titan Xp) |
@@ -48,18 +48,18 @@ The third point is simply because we feel the two stream classifier
 and pre-training in the original paper is over-complicated and not
 necessary.
 
-For activation, we tried gated tanh but cannot make it work. We also
-tried gated linear unit (GLU) and in fact it works better than
-ReLU. Eventually we choose ReLU due to its simplicity and the gain
+For the non-linear activation unit, we tried gated tanh but couldn't
+make it work. We also tried gated linear unit (GLU) and it works better than
+ReLU. Eventually we choose ReLU due to its simplicity and since the gain
 from using GLU is too small to justify the fact that GLU doubles the
 number of parameters.
 
-With these simplification we would expect the performance to drop. For
+With these simplifications we would expect the performance to drop. For
 reference, the best result on validation set reported in the paper is
 63.15. The reported result without extra data from visual genome is
 62.48, the result using only 36 objects per image is 62.82, the result
 using two steam classifier but not pre-trained is 62.28 and the result
-using ReLU is 61.63. These numbers are cited from the Table1 of the
+using ReLU is 61.63. These numbers are cited from the Table 1 of the
 paper: "Tips and Tricks for Visual Question Answering: Learnings from
 the 2017 Challenge". With all the above simplification aggregated, our
 first implementation got around 59-60 on validation set.
@@ -67,7 +67,7 @@ first implementation got around 59-60 on validation set.
 To shrink the gap, we added some easy but powerful
 modifications. Including:
 
-1. Add dropout to alleviate overfitting problem
+1. Add dropout to alleviate overfitting
 2. Double the number of neurons
 3. Add weight normalization (BN seems not working well here)
 4. Switch to Adamax optimizer
@@ -78,8 +78,8 @@ change the concatenation based attention module in the original paper
 to a projection based module. This new attention module is inspired by
 the paper "Modeling Relationships in Referential Expressions with
 Compositional Modular Networks"
-(https://arxiv.org/pdf/1611.09978.pdf).  but it is slightly more
-complicated than that (implemented in attention.NewAttention).  With
+(https://arxiv.org/pdf/1611.09978.pdf), but with some modifications
+(implemented in attention.NewAttention).  With
 the help of this new attention, we boost the performance to ~63.67,
 surpassing the reported best result with no extra data and less
 computation cost.
