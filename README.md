@@ -64,7 +64,7 @@ paper: "Tips and Tricks for Visual Question Answering: Learnings from
 the 2017 Challenge". With all the above simplification aggregated, our
 first implementation got around 59-60 on validation set.
 
-To shrink the gap, we added some easy but powerful
+To shrink the gap, we added some simple but powerful
 modifications. Including:
 
 1. Add dropout to alleviate overfitting
