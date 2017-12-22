@@ -59,6 +59,15 @@ def init_net(net, net_file):
         net.apply(weights_init)
 
 
+def create_dir(path):
+    if not os.path.exists(path):
+        try:
+            os.makedirs(path)
+        except OSError as exc:
+            if exc.errno != errno.EEXIST:
+                raise
+
+
 class Logger(object):
     def __init__(self, output_name):
         dirname = os.path.dirname(output_name)

@@ -100,7 +100,7 @@ def _load_dataset(dataroot, name, img_id2val):
 class VQAFeatureDataset(Dataset):
     def __init__(self, name, dictionary, dataroot='data'):
         super(VQAFeatureDataset, self).__init__()
-        assert name in ['train', 'val', 'dev']
+        assert name in ['train', 'val']
 
         ans2label_path = os.path.join(dataroot, 'cache', 'trainval_ans2label.pkl')
         label2ans_path = os.path.join(dataroot, 'cache', 'trainval_label2ans.pkl')
@@ -110,21 +110,15 @@ class VQAFeatureDataset(Dataset):
 
         self.dictionary = dictionary
 
-        if name == 'train' or name == 'val':
-            self.img_id2idx = cPickle.load(
-                open(os.path.join(dataroot, '%s36_imgid2idx.pkl' % name)))
-            print 'loading features from h5 file'
-            h5_path = os.path.join(dataroot, '%s36.hdf5' % name)
-            with h5py.File(h5_path, 'r') as hf:
-                self.features = np.array(hf.get('image_features'))
-                self.spatials = np.array(hf.get('spatial_features'))
+        self.img_id2idx = cPickle.load(
+            open(os.path.join(dataroot, '%s36_imgid2idx.pkl' % name)))
+        print 'loading features from h5 file'
+        h5_path = os.path.join(dataroot, '%s36.hdf5' % name)
+        with h5py.File(h5_path, 'r') as hf:
+            self.features = np.array(hf.get('image_features'))
+            self.spatials = np.array(hf.get('spatial_features'))
 
-            self.entries = _load_dataset(dataroot, name, self.img_id2idx)
-        else:
-            self.features = np.load(os.path.join(dataroot, 'dev_features.npy'))
-            self.spatials = np.load(os.path.join(dataroot, 'dev_spatials.npy'))
-            self.entries = cPickle.load(
-                open(os.path.join(dataroot, 'dev_entries.pkl')))
+        self.entries = _load_dataset(dataroot, name, self.img_id2idx)
 
         self.tokenize()
         self.tensorize()
@@ -184,10 +178,3 @@ class VQAFeatureDataset(Dataset):
 
     def __len__(self):
         return len(self.entries)
-
-
-if __name__ == '__main__':
-    dictionary = Dictionary.load_from_file('data/dictionary.pkl')
-    dset = VQAFeatureDataset('dev', dictionary)
-    dataloader = torch.utils.data.DataLoader(
-        dset, batch_size=100, shuffle=True, num_workers=4, drop_last=False)

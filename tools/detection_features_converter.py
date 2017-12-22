@@ -1,7 +1,7 @@
 """
 Reads in a tsv file with pre-trained bottom up attention features and
 stores it in HDF5 format.  Also store {image_id: feature_idx}
-dictinoary as a pickle file.
+ as a pickle file.
 
 Hierarchy of HDF5 file:
 
@@ -16,7 +16,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import base64
 import csv
 import h5py
-import pickle
+import cPickle
 import numpy as np
 import utils
 
@@ -25,23 +25,32 @@ csv.field_size_limit(sys.maxsize)
 
 FIELDNAMES = ['image_id', 'image_w', 'image_h', 'num_boxes', 'boxes', 'features']
 infile = 'data/trainval_36/trainval_resnet101_faster_rcnn_genome_36.tsv'
-train_data_outfile = 'data/train36.hdf5'
-val_data_outfile = 'data/val36.hdf5'
-train_indices_outfile = 'data/train36_imgid2idx.pkl'
-val_indices_outfile = 'data/val36_imgid2idx.pkl'
+train_data_file = 'data/train36.hdf5'
+val_data_file = 'data/val36.hdf5'
+train_indices_file = 'data/train36_imgid2idx.pkl'
+val_indices_file = 'data/val36_imgid2idx.pkl'
+train_ids_file = 'data/train_ids.pkl'
+val_ids_file = 'data/val_ids.pkl'
 
 feature_length = 2048
 num_fixed_boxes = 36
 
 
 if __name__ == '__main__':
-    h_train = h5py.File(train_data_outfile, "w")
-    h_val = h5py.File(val_data_outfile, "w")
+    h_train = h5py.File(train_data_file, "w")
+    h_val = h5py.File(val_data_file, "w")
+
+    if os.path.exists(train_ids_file) and os.path.exists(val_ids_file):
+        train_imgids = cPickle.load(open(train_ids_file))
+        val_imgids = cPickle.load(open(val_ids_file))
+    else:
+        train_imgids = utils.load_imageid('data/train2014')
+        val_imgids = utils.load_imageid('data/val2014')
+        cPickle.dump(train_imgids, open(train_ids_file, 'wb'))
+        cPickle.dump(val_imgids, open(val_ids_file, 'wb'))
+
     train_indices = {}
     val_indices = {}
-
-    train_imgids = utils.load_imageid('data/train2014')
-    val_imgids = utils.load_imageid('data/val2014')
 
     train_img_features = h_train.create_dataset(
         'image_features', (len(train_imgids), num_fixed_boxes, feature_length), 'f')
@@ -56,9 +65,6 @@ if __name__ == '__main__':
         'image_features', (len(val_imgids), num_fixed_boxes, feature_length), 'f')
     val_spatial_img_features = h_val.create_dataset(
         'spatial_features', (len(val_imgids), num_fixed_boxes, 6), 'f')
-
-    train_imgids = pickle.load(open(train_indices_outfile, 'r'))
-    val_imgids = pickle.load(open(val_indices_outfile, 'r'))
 
     train_counter = 0
     val_counter = 0
@@ -125,8 +131,8 @@ if __name__ == '__main__':
     if len(val_imgids) != 0:
         print 'Warning: val_image_ids is not empty'
 
-    pickle.dump(train_indices, open(train_indices_outfile, 'wb'))
-    pickle.dump(val_indices, open(val_indices_outfile, 'wb'))
+    cPickle.dump(train_indices, open(train_indices_file, 'wb'))
+    cPickle.dump(val_indices, open(val_indices_file, 'wb'))
     h_train.close()
     h_val.close()
     print "done!"
