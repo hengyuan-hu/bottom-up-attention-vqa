@@ -23,10 +23,10 @@ This is part of a project done at CMU for the course 11-777
 Advanced Multimodal Machine Learning and a joint work between Hengyuan Hu,
 Alex Xiao, and Henry Huang.
 
-The purpose of this project is not to beat the results published in the original papers.
-For our project we were planning to integrate object
+As part of our project, we implemented bottom up attention as a strong VQA baseline. We were planning to integrate object
 detection with VQA and were very glad to see that Peter Anderson and
-Damien Teney et al. had done that beautifully. We hope this clean and
+Damien Teney et al. had already done that beautifully.
+We hope this clean and
 efficient implementation can serve as a useful baseline for future VQA
 explorations.
 
@@ -38,7 +38,7 @@ the following simplifications:
 1. We don't use extra data from [Visual Genome](http://visualgenome.org/).
 2. We use only a fixed number of objects per image (K=36).
 3. We use a simple, single stream classifier without pre-training.
-4. We use simple ReLU activation instead of gated tanh.
+4. We use the simple ReLU activation instead of gated tanh.
 
 The first two points greatly reduce the training time. Our
 implementation takes around 200 seconds per epoch on a single Titan Xp while
