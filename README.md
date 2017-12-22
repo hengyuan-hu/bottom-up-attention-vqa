@@ -69,7 +69,7 @@ modifications. Including:
 
 1. Add dropout to alleviate overfitting
 2. Double the number of neurons
-3. Add weight normalization (BN seems not working well here)
+3. Add weight normalization (BN seems not work well here)
 4. Switch to Adamax optimizer
 5. Gradient clipping
 
