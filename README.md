@@ -13,7 +13,7 @@ Question Answering: Learnings from the 2017 Challenge"
 | Model | Validation Accuracy | Training Time
 | --- | --- | -- |
 | Reported Model | 63.15 | 12 - 18 hours (Tesla K40) |
-| Implemented Model | **63.67** | 40 - 50 minutes (Titan Xp) |
+| Implemented Model | **63.58** | 40 - 50 minutes (Titan Xp) |
 
 The accuracy was calculated using the [VQA evaluation metric](http://www.visualqa.org/evaluation.html).
 
@@ -80,10 +80,26 @@ the paper "Modeling Relationships in Referential Expressions with
 Compositional Modular Networks"
 (https://arxiv.org/pdf/1611.09978.pdf), but with some modifications
 (implemented in attention.NewAttention).  With
-the help of this new attention, we boost the performance to ~63.67,
+the help of this new attention, we boost the performance to ~63.58,
 surpassing the reported best result with no extra data and less
 computation cost.
 
 ## Usage
 
-TODO
+#### Prerequisites
+
+Make sure you are on a machine with a NVIDIA GPU and Python 2 with about 70 GB disk space.
+
+1. Install [PyTorch](http://pytorch.org/) with CUDA and Python 2.7.
+2. Install [h5py](http://docs.h5py.org/en/latest/build.html).
+
+#### Data Setup
+
+All data should be downloaded to a data/ directory in the root directory of this repository.
+
+The easiest way to download the data is to run the provided script `tools/download.sh` from the repository root. If the script does not work, it should be easy to examine the script and modify the steps outlined in it according to your needs. Then run `tools/process.sh` from the repository root to process the data to the correct format.
+
+#### Training
+
+Simply run `python main.py` to start training. The training and validation scores will be printed
+every epoch, and the best model will be saved under the directory "saved_models". The default flags should give you the result provided in the table above.
