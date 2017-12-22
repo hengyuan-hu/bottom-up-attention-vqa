@@ -165,6 +165,8 @@ def create_ans2label(occurence, name, cache_root='data/cache'):
         ans2label[answer] = label
         label += 1
 
+    utils.create_dir(cache_root)
+
     cache_file = os.path.join(cache_root, name+'_ans2label.pkl')
     cPickle.dump(ans2label, open(cache_file, 'wb'))
     cache_file = os.path.join(cache_root, name+'_label2ans.pkl')
@@ -203,6 +205,7 @@ def compute_target(answers_dset, ans2label, name, cache_root='data/cache'):
             'scores': scores
         })
 
+    utils.create_dir(cache_root)
     cache_file = os.path.join(cache_root, name+'_target.pkl')
     cPickle.dump(target, open(cache_file, 'wb'))
     return target

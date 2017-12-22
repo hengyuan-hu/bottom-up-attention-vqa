@@ -23,6 +23,7 @@ def compute_score_with_logits(logits, labels):
 
 
 def train(model, train_loader, eval_loader, num_epochs, output):
+    utils.create_dir(output)
     optim = torch.optim.Adamax(model.parameters())
     logger = utils.Logger(os.path.join(output, 'log.txt'))
     best_eval_score = 0
