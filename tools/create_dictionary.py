@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os
 import sys
 import json
@@ -28,7 +29,7 @@ def create_glove_embedding_init(idx2word, glove_file):
     with open(glove_file, 'r') as f:
         entries = f.readlines()
     emb_dim = len(entries[0].split(' ')) - 1
-    print 'embedding dim is %d' % emb_dim
+    print('embedding dim is %d' % emb_dim)
     weights = np.zeros((len(idx2word), emb_dim), dtype=np.float32)
 
     for entry in entries:

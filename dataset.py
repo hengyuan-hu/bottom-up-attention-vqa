@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os
 import json
 import cPickle
@@ -40,11 +41,11 @@ class Dictionary(object):
 
     def dump_to_file(self, path):
         cPickle.dump([self.word2idx, self.idx2word], open(path, 'wb'))
-        print 'dictionary dumped to %s' % path
+        print('dictionary dumped to %s' % path)
 
     @classmethod
     def load_from_file(cls, path):
-        print 'loading dictionary from %s' % path
+        print('loading dictionary from %s' % path)
         word2idx, idx2word = cPickle.load(open(path, 'rb'))
         d = cls(word2idx, idx2word)
         return d
@@ -112,7 +113,7 @@ class VQAFeatureDataset(Dataset):
 
         self.img_id2idx = cPickle.load(
             open(os.path.join(dataroot, '%s36_imgid2idx.pkl' % name)))
-        print 'loading features from h5 file'
+        print('loading features from h5 file')
         h5_path = os.path.join(dataroot, '%s36.hdf5' % name)
         with h5py.File(h5_path, 'r') as hf:
             self.features = np.array(hf.get('image_features'))
