@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os
 import sys
 import json
@@ -145,8 +146,8 @@ def filter_answers(answers_dset, min_occurence):
         if len(occurence[answer]) < min_occurence:
             occurence.pop(answer)
 
-    print 'Num of answers that appear >= %d times: %d' % (
-        min_occurence, len(occurence))
+    print('Num of answers that appear >= %d times: %d' % (
+        min_occurence, len(occurence)))
     return occurence
 
 

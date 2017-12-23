@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import errno
 import os
 import numpy as np
@@ -50,7 +52,7 @@ def weights_init(m):
         m.weight.data.normal_(1.0, 0.02)
         m.bias.data.fill_(0)
     else:
-        print '%s is not initialized.' % cname
+        print('%s is not initialized.' % cname)
 
 
 def init_net(net, net_file):
@@ -95,4 +97,4 @@ class Logger(object):
     def write(self, msg):
         self.log_file.write(msg + '\n')
         self.log_file.flush()
-        print msg
+        print(msg)

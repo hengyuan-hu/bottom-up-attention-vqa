@@ -8,6 +8,7 @@ Hierarchy of HDF5 file:
 { 'image_features': num_images x num_boxes x 2048 array of features
   'image_bb': num_images x num_boxes x 4 array of bounding boxes }
 """
+from __future__ import print_function
 
 import os
 import sys
@@ -69,7 +70,7 @@ if __name__ == '__main__':
     train_counter = 0
     val_counter = 0
 
-    print "reading tsv..."
+    print("reading tsv...")
     with open(infile, "r+b") as tsv_in_file:
         reader = csv.DictReader(tsv_in_file, delimiter='\t', fieldnames=FIELDNAMES)
         for item in reader:
@@ -126,13 +127,13 @@ if __name__ == '__main__':
                 assert False, 'Unknown image id: %d' % image_id
 
     if len(train_imgids) != 0:
-        print 'Warning: train_image_ids is not empty'
+        print('Warning: train_image_ids is not empty')
 
     if len(val_imgids) != 0:
-        print 'Warning: val_image_ids is not empty'
+        print('Warning: val_image_ids is not empty')
 
     cPickle.dump(train_indices, open(train_indices_file, 'wb'))
     cPickle.dump(val_indices, open(val_indices_file, 'wb'))
     h_train.close()
     h_val.close()
-    print "done!"
+    print("done!")
