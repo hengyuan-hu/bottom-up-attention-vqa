@@ -44,7 +44,7 @@ def pil_loader(path):
 
 
 def weights_init(m):
-    """custom weights initialization called on net_g and net_f."""
+    """custom weights initialization."""
     cname = m.__class__
     if cname == nn.Linear or cname == nn.Conv2d or cname == nn.ConvTranspose2d:
         m.weight.data.normal_(0.0, 0.02)
