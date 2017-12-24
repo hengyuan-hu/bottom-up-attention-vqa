@@ -1,6 +1,6 @@
 ## Bottom-Up and Top-Down Attention for Visual Question Answering
 
-An efficient PyTorch implementation of the winning entry of the [2017 VQA Challenge](http://www.visualqa.org/roe_2017.html).
+An efficient PyTorch implementation of the winning entry of the [2017 VQA Challenge](http://www.visualqa.org/challenge.html).
 
 The implementation follows the VQA system described in "Bottom-Up and
 Top-Down Attention for Image Captioning and Visual Question Answering"
