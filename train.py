@@ -63,6 +63,7 @@ def train(model, train_loader, eval_loader, num_epochs, output):
         if eval_score > best_eval_score:
             model_path = os.path.join(output, 'model.pth')
             torch.save(model.state_dict(), model_path)
+            best_eval_score = eval_score
 
 
 def evaluate(model, dataloader):
