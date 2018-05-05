@@ -28,6 +28,6 @@ unzip data/v2_Annotations_Val_mscoco.zip -d data
 rm data/v2_Annotations_Val_mscoco.zip
 
 # Image Features
-wget -P data https://storage.googleapis.com/bottom-up-attention/trainval_36.zip
+wget -P data https://imagecaption.blob.core.windows.net/imagecaption/trainval_36.zip
 unzip data/trainval_36.zip -d data
 rm data/trainval_36.zip
